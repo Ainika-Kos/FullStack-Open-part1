@@ -1,49 +1,69 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Header = (props) => {
+const Header = ({course}) => {
   return (
     <div>
-      <h1>{props.course}</h1>
+      <h1>{course}</h1>
     </div>
   )
 }
 
-const Content = (props) => {
+const Part = ({part}) => {
   return (
     <div>
-      <p>{props.part} {props.excercise}</p>
+      <p>{part.name} {part.exсercises}</p>
     </div>
   )
 }
 
-const Total = (props) => {
+const Content = ({parts}) => {
+  return (
+  <div>
+    <Part part={parts[0]} />
+    <Part part={parts[1]} />
+    <Part part={parts[2]} />
+  </div>
+  )
+}
+
+const Total = ({parts}) => {
   return (
     <div>
-      <p>Number of exercises {props.total}</p>
+      <p>Number of exercises {parts[0].excercises + parts[1].excercises + parts[2].excercises}</p>
     </div>
   )
 }
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const course = {
+    courseName: 'Half Stack application development',
+    parts: [
+    {
+      name: 'Fundamentals of React',
+      excercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      excercises: 7
+    },
+    {
+      name: 'State of a component',
+      excercises: 14
+    }]
+  }
+  
 
   return (
     <div>
-      <Header course={course}/>
-      <Content part={part1} excercise={exercises1} />
-      <Content part={part2} excercise={exercises2} />
-      <Content part={part3} excercise={exercises3} />
-      <Total total={exercises1 + exercises2 + exercises3} />
+      <Header course={course.courseName}/>
+      <Content parts={course.parts}/>
+      <Total parts={course.parts}/>
     </div>
   )
 }
+
+
 
 
 ReactDOM.render(<App />, document.getElementById('root')
